@@ -4,6 +4,7 @@ import Spinner from "./Spinner";
 import PropTypes from "prop-types";
 
 export class News extends Component {
+  // You must always call a Constructor of super class, otherwise it will throw an error.
   static defaultProps = {
     country: "in",
     pageSize: 8,
@@ -18,6 +19,7 @@ export class News extends Component {
 
   constructor() {
     super();
+    // console.log("Hello, I am a constructor from News component.");
     this.state = {
       articles: [],
       loading: false,
@@ -26,6 +28,7 @@ export class News extends Component {
   }
 
   async componentDidMount() {
+    // console.log("cdm");
     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=c4507ea94cd94d85ae44b641d48f906f&page=1&pageSize=${this.props.pageSize}`;
     this.setState({ loading: true });
     let data = await fetch(url);
@@ -39,18 +42,19 @@ export class News extends Component {
   }
 
   handlePrevClick = async () => {
-    console.log("Previous");
+    // console.log("Previous button clicked");
     let url = `https://newsapi.org/v2/top-headlines?country=${
       this.props.country
     }&category=${
       this.props.category
     }&apiKey=c4507ea94cd94d85ae44b641d48f906f&page=${
       this.state.page - 1
-    }&pageSize=${this.props.pageSize}`;
+    } &pageSize = ${this.props.pageSize} `;
     this.setState({ loading: true });
+
     let data = await fetch(url);
     let parsedData = await data.json();
-    console.log(parsedData);
+
     this.setState({
       page: this.state.page - 1,
       articles: parsedData.articles,
@@ -59,7 +63,8 @@ export class News extends Component {
   };
 
   handleNextClick = async () => {
-    console.log("Next");
+    // console.log("Next button clicked");
+
     if (
       !(
         this.state.page + 1 >
@@ -72,10 +77,14 @@ export class News extends Component {
         this.props.category
       }&apiKey=c4507ea94cd94d85ae44b641d48f906f&page=${
         this.state.page + 1
-      }&pageSize=${this.props.pageSize}`;
+      } &pageSize = ${this.props.pageSize}`;
       this.setState({ loading: true });
+
       let data = await fetch(url);
       let parsedData = await data.json();
+
+      // console.log(parsedData);
+
       this.setState({
         page: this.state.page + 1,
         articles: parsedData.articles,
@@ -85,6 +94,7 @@ export class News extends Component {
   };
 
   render() {
+    // console.log("render");
     return (
       <div className="container my-3">
         <h1 className="text-center" style={{ margin: "35px 0px" }}>
@@ -97,8 +107,10 @@ export class News extends Component {
               return (
                 <div className="col-md-4" key={element.url}>
                   <NewsItem
-                    title={element.title ? element.title : ""}
-                    description={element.description ? element.description : ""}
+                    title={element.title ? element.title : " "}
+                    description={
+                      element.description ? element.description : " "
+                    }
                     imageUrl={element.urlToImage}
                     newsUrl={element.url}
                   />
@@ -106,6 +118,7 @@ export class News extends Component {
               );
             })}
         </div>
+
         <div className="container d-flex justify-content-between">
           <button
             disabled={this.state.page <= 1}
@@ -113,7 +126,6 @@ export class News extends Component {
             className="btn btn-dark"
             onClick={this.handlePrevClick}
           >
-            {" "}
             &larr; Previous
           </button>
           <button
