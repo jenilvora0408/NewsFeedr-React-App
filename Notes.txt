@@ -18,3 +18,18 @@ Methods in React Component Lifecycle:
 -> The componentdidUpdate() method is invoked as soon as the updating happens. 
 -> The most common use case for the componentDidUpdate() method is updating the DOM in response to prop or state changes.
 -> The componentWillUnmount() lifecycle method is called before the component is unmounted & destroyed. Usually used to perform cleanups.
+
+React Hooks:
+
+-> Features of class-based components in function-based components.
+-> It allows you to use state & other react features without writing a class.
+-> Hooks are functions which "hook into" react state & lifecycle features from function components.
+
+Commonly used React Hooks:
+
+a) useState
+b) useEffect
+c) useContext
+d) useRef
+
+A React Application can consist of both class-based & function-based component.
